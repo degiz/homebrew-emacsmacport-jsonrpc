@@ -105,7 +105,7 @@ class EmacsMacJsonrpc < Formula
   if build.with? "async-jsonrpc"
     patch do
       url "https://raw.githubusercontent.com/degiz/homebrew-emacsmacport-jsonrpc/master/patches/jsonrpc.patch"
-      sha256 "2e6db71036aa24ac52e62868b7127c0826fd3f39c602fb79dabe985f4c76a18b"
+      sha256 "cc075c7afab5a849e51e92cc4289b8ed5ad6cf486ba85a6757a6bb651d9b9a9d"
     end
   end
 

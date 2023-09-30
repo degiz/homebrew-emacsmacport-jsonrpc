@@ -1,7 +1,7 @@
 From 8e671db6c26832e649118fbbc75ae5bff26d22f7 Mon Sep 17 00:00:00 2001
 From: Ivan Yonchovski <yyoncho@gmail.com>
 Date: Mon, 27 Jun 2022 15:05:57 +0300
-Subject: [PATCH 1/6] [POC] Initial implementation
+Subject: [PATCH 1/7] [POC] Initial implementation
 
 ---
  .clang-format | 179 +++++++++++++++++++++-----
@@ -943,7 +943,7 @@ index 82c445ba7e..ff10428106 100644
 From 4490c0b1e06098e0be526a831754b1448f800556 Mon Sep 17 00:00:00 2001
 From: Ivan Yonchovski <yyoncho@gmail.com>
 Date: Mon, 7 Nov 2022 10:23:39 +0200
-Subject: [PATCH 2/6] Add MacOS as well
+Subject: [PATCH 2/7] Add MacOS as well
 
 ---
  src/spsupr.c | 2 +-
@@ -968,7 +968,7 @@ index c81478fd8d..864c60975f 100644
 From cc4dc01eba02f46d3927e60e7f20af963e842c09 Mon Sep 17 00:00:00 2001
 From: Ivan Yonchovski <yyoncho@gmail.com>
 Date: Wed, 9 Nov 2022 07:53:59 +0200
-Subject: [PATCH 3/6] Call close when the connection is done
+Subject: [PATCH 3/7] Call close when the connection is done
 
 ---
  src/json.c | 1 +
@@ -993,7 +993,7 @@ index 965b5f67c1..67daac1c60 100644
 From e44d9c9da2f496f9f10f05635269879bc967941e Mon Sep 17 00:00:00 2001
 From: Ivan Yonchovski <yyoncho@gmail.com>
 Date: Sun, 13 Nov 2022 20:37:54 +0200
-Subject: [PATCH 4/6] Add some synchronization when sending/receiving
+Subject: [PATCH 4/7] Add some synchronization when sending/receiving
  notifications
 
 Originally created by @606u
@@ -1230,7 +1230,7 @@ index 67daac1c60..ffafeb174a 100644
 From 26252285572cd6b19e590f1ee919202d0a4d2dc8 Mon Sep 17 00:00:00 2001
 From: Sebastian Sturm <s.sturm@arkona-technologies.de>
 Date: Thu, 8 Dec 2022 20:42:26 +0100
-Subject: [PATCH 5/6] Initialize state->done within json-rpc-connection
+Subject: [PATCH 5/7] Initialize state->done within json-rpc-connection
 
 previously, state->done would randomly evaluate to
 true, causing freshly spawned language servers to
@@ -1258,7 +1258,7 @@ index ffafeb174a..12998b1ab8 100644
 From 87596d041094e398c4823f1b41a87690478cefca Mon Sep 17 00:00:00 2001
 From: Sebastian Sturm <s.sturm@arkona-technologies.de>
 Date: Thu, 8 Dec 2022 20:43:29 +0100
-Subject: [PATCH 6/6] Initialize state->error_buffer_read
+Subject: [PATCH 6/7] Initialize state->error_buffer_read
 
 random values of state->error_buffer_read might otherwise
 cause memory corruption as we write beyond the stderr receive
@@ -1282,6 +1282,32 @@ index 12998b1ab8..ed8c280132 100644
        SAFE_FREE ();
        return make_user_ptr (json_rpc_state_free, state);
      }
+-- 
+2.42.0
+
+
+From 44bcca9af5c31039dea9f090b59e7ac82c27ef2f Mon Sep 17 00:00:00 2001
+From: Alexander Khizov <a.khizov@sent.com>
+Date: Sat, 30 Sep 2023 18:24:12 +0200
+Subject: [PATCH 7/7] Increase F_RELOC_MAX_SIZE
+
+---
+ src/comp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/comp.c b/src/comp.c
+index b6072a866e..822cec4751 100644
+--- a/src/comp.c
++++ b/src/comp.c
+@@ -531,7 +531,7 @@ load_gccjit_if_necessary (bool mandatory)
+ #define SETJMP_NAME SETJMP
+ 
+ /* Max number function importable by native compiled code.  */
+-#define F_RELOC_MAX_SIZE 1500
++#define F_RELOC_MAX_SIZE 2000
+ 
+ typedef struct {
+   void *link_table[F_RELOC_MAX_SIZE];
 -- 
 2.42.0
 
