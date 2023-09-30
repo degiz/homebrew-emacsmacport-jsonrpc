@@ -1,4 +1,4 @@
-cask 'emacs-mac' do
+cask 'emacs-mac-jsonrpc' do
   version 'emacs-29.1-mac-10.0'
 
   if Hardware::CPU.intel?

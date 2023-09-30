@@ -1,4 +1,4 @@
-class EmacsMac < Formula
+class EmacsMacJsonrpc < Formula
   desc "YAMAMOTO Mitsuharu's Mac port of GNU Emacs"
   homepage "https://www.gnu.org/software/emacs/"
   stable do
@@ -22,6 +22,7 @@ class EmacsMac < Formula
   option "with-native-comp", "Build with native compilation (same as \"--with-native-compilation\", for compatibility only)"
   option "with-native-compilation", "Build with native compilation"
   option "with-xwidgets", "Build with xwidgets"
+  option "with-async-jsonrpc", "Build with async jsonrpc"
 
   # icons
   ICONS_INFO = {
@@ -101,6 +102,13 @@ class EmacsMac < Formula
     depends_on "gcc" => :build
   end
 
+  if build.with? "async-jsonrpc"
+    patch do
+      url "https://raw.githubusercontent.com/degiz/homebrew-emacsmacport-jsonrpc/master/patches/jsonrpc.patch"
+      sha256 "2e6db71036aa24ac52e62868b7127c0826fd3f39c602fb79dabe985f4c76a18b"
+    end
+  end
+
   def install
     args = [
       "--enable-locallisppath=#{HOMEBREW_PREFIX}/share/emacs/site-lisp",
@@ -117,6 +125,7 @@ class EmacsMac < Formula
     args << "--with-native-compilation" if (build.with? "native-comp") || (build.with? "native-compilation")
     args << "--with-xwidgets" if build.with? "xwidgets"
     args << "--with-tree-sitter" if build.with? "tree-sitter"
+    args << "--with-async-jsonrpc" if build.with? "async-jsonrpc"
 
     if (build.with? "native-comp") || (build.with? "native-compilation")
       gcc_ver = Formula["gcc"].any_installed_version
